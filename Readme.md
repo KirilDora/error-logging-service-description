@@ -4,97 +4,97 @@
 
 **Client-Side SDK**
 
-- Technology Choices:
+Technology Choices:
 
-* Libraries: A lightweight, non-blocking JavaScript library.
+- Libraries: A lightweight, non-blocking JavaScript library.
 
-* Frameworks: Integration modules for React, Vue.js, and Next.js.
+- Frameworks: Integration modules for React, Vue.js, and Next.js.
 
-- Justification:
+Justification:
 
-* Minimal Footprint: The SDK must be incredibly small and efficient to avoid impacting the performance of the client application. It should work in a non-blocking manner to prevent UI freezes.
+- Minimal Footprint: The SDK must be incredibly small and efficient to avoid impacting the performance of the client application. It should work in a non-blocking manner to prevent UI freezes.
 
-- Flexibility: It should allow developers to easily capture and send logs with custom context, such as user IDs, session information, and environment details.
+* Flexibility: It should allow developers to easily capture and send logs with custom context, such as user IDs, session information, and environment details.
 
-- Resilience: The SDK should include a caching mechanism to store logs locally and retry sending them if the user's internet connection is temporarily lost.
+* Resilience: The SDK should include a caching mechanism to store logs locally and retry sending them if the user's internet connection is temporarily lost.
 
-- Ease of Use: A simple and intuitive API for developers to initialize the SDK and log errors. The integration with React/Vue/Next.js should be seamless, possibly using hooks or a dedicated provider.
+* Ease of Use: A simple and intuitive API for developers to initialize the SDK and log errors. The integration with React/Vue/Next.js should be seamless, possibly using hooks or a dedicated provider.
 
 **Backend API**
 
-- Technology Choices:
+Technology Choices:
 
-* Core Language & Framework: Node.js with either Express or NestJS.
+- Core Language & Framework: Node.js with either Express or NestJS.
 
-* Reverse Proxy: Nginx or a managed load balancer from a cloud provider.
+- Reverse Proxy: Nginx or a managed load balancer from a cloud provider.
 
-- Justification:
+Justification:
 
-* Node.js Strengths: Node.js is an excellent choice for I/O-heavy applications like an error logging service, which primarily receives and processes large volumes of data. Its asynchronous, non-blocking I/O model is highly efficient for handling a massive number of concurrent connections.
+- Node.js Strengths: Node.js is an excellent choice for I/O-heavy applications like an error logging service, which primarily receives and processes large volumes of data. Its asynchronous, non-blocking I/O model is highly efficient for handling a massive number of concurrent connections.
 
-* Express/NestJS: Express is a minimalist and flexible framework, perfect for a high-performance, purpose-built API. NestJS provides a more structured, opinionated, and scalable architecture, which is beneficial for managing complexity as the service grows.
+- Express/NestJS: Express is a minimalist and flexible framework, perfect for a high-performance, purpose-built API. NestJS provides a more structured, opinionated, and scalable architecture, which is beneficial for managing complexity as the service grows.
 
-* Scalability: The architecture should be stateless to allow for easy horizontal scaling. This means we can run multiple instances of the API behind a load balancer.
+- Scalability: The architecture should be stateless to allow for easy horizontal scaling. This means we can run multiple instances of the API behind a load balancer.
 
 **Database**
 
-- Technology Choices:
+Technology Choices:
 
-* Primary Storage: MongoDB.
+- Primary Storage: MongoDB.
 
-* Analytics & Full-Text Search: Elasticsearch (with Kibana for visualization).
+- Analytics & Full-Text Search: Elasticsearch (with Kibana for visualization).
 
-- Justification:
+Justification:
 
-* MongoDB: It's a great fit for storing error logs due to its flexible schema. Logs often have varying properties and unstructured data, which MongoDB handles gracefully. It's also easy to scale horizontally with sharding.
+- MongoDB: It's a great fit for storing error logs due to its flexible schema. Logs often have varying properties and unstructured data, which MongoDB handles gracefully. It's also easy to scale horizontally with sharding.
 
-* Elasticsearch: This is the ideal technology for handling the massive volume of log data and enabling fast, complex searches. Elasticsearch provides a powerful full-text search engine and is built for analytical queries. It's perfectly suited for the web dashboard's search and filter capabilities.
+- Elasticsearch: This is the ideal technology for handling the massive volume of log data and enabling fast, complex searches. Elasticsearch provides a powerful full-text search engine and is built for analytical queries. It's perfectly suited for the web dashboard's search and filter capabilities.
 
-* Data Retention: Implement a strategy to manage data volume, such as using Elasticsearch's Index Lifecycle Management (ILM) to automatically archive or delete old logs.
+- Data Retention: Implement a strategy to manage data volume, such as using Elasticsearch's Index Lifecycle Management (ILM) to automatically archive or delete old logs.
 
 **Web Dashboard**
 
-- Technology Choices:
+Technology Choices:
 
-* Frontend Framework: React or Vue.js.
+- Frontend Framework: React or Vue.js.
 
-* UI Library: Material-UI, Chakra UI, or Ant Design.
+- UI Library: Material-UI, Chakra UI, or Ant Design.
 
-* Backend for Frontend (BFF): A simple Node.js/Express server to communicate with the Elasticsearch cluster and other backend services.
+- Backend for Frontend (BFF): A simple Node.js/Express server to communicate with the Elasticsearch cluster and other backend services.
 
-- Justification:
+Justification:
 
-* Rich UI/UX: React and Vue.js are industry standards for building sophisticated Single-Page Applications (SPAs). They provide a dynamic and responsive user experience for developers.
+- Rich UI/UX: React and Vue.js are industry standards for building sophisticated Single-Page Applications (SPAs). They provide a dynamic and responsive user experience for developers.
 
-* Pre-built Components: Using a robust UI library significantly speeds up development and ensures a clean, professional look.
+- Pre-built Components: Using a robust UI library significantly speeds up development and ensures a clean, professional look.
 
-* Backend for Frontend (BFF) Pattern: This pattern is crucial for a microservices architecture. The BFF handles authentication, aggregates data from multiple backend services (e.g., fetching user data from a separate service and log data from Elasticsearch), and prepares it for the frontend, simplifying the client-side code.
+- Backend for Frontend (BFF) Pattern: This pattern is crucial for a microservices architecture. The BFF handles authentication, aggregates data from multiple backend services (e.g., fetching user data from a separate service and log data from Elasticsearch), and prepares it for the frontend, simplifying the client-side code.
 
 **DevOps & Infrastructure**
 
-- Technology Choices:
+Technology Choices:
 
-* Cloud Provider: AWS, Google Cloud (GCP), or Microsoft Azure.
+- Cloud Provider: AWS, Google Cloud (GCP), or Microsoft Azure.
 
-* Containerization: Docker.
+- Containerization: Docker.
 
-* Orchestration: Kubernetes (managed services like EKS, GKE, or AKS are preferred).
+- Orchestration: Kubernetes (managed services like EKS, GKE, or AKS are preferred).
 
-* CI/CD: GitHub Actions or GitLab CI/CD.
+- CI/CD: GitHub Actions or GitLab CI/CD.
 
-* Monitoring & Alerting: Prometheus and Grafana.
+- Monitoring & Alerting: Prometheus and Grafana.
 
-* Notifications: Amazon SNS or Twilio SendGrid for email.
+- Notifications: Amazon SNS or Twilio SendGrid for email.
 
-- Justification:
+Justification:
 
-* Scalability & Reliability: Kubernetes allows us to manage and automatically scale our services based on traffic.
+- Scalability & Reliability: Kubernetes allows us to manage and automatically scale our services based on traffic.
 
-* Automation: A CI/CD pipeline automates the build, test, and deployment process, enabling frequent and reliable updates.
+- Automation: A CI/CD pipeline automates the build, test, and deployment process, enabling frequent and reliable updates.
 
-* Observability: Prometheus and Grafana are a powerful combination for monitoring system metrics, allowing us to proactively identify and resolve performance issues.
+- Observability: Prometheus and Grafana are a powerful combination for monitoring system metrics, allowing us to proactively identify and resolve performance issues.
 
-* Cost-Efficiency: Cloud-based solutions allow us to only pay for the resources we use and scale up or down as needed.
+- Cost-Efficiency: Cloud-based solutions allow us to only pay for the resources we use and scale up or down as needed.
 
 **Key Questions for the Platform Owner**
 
